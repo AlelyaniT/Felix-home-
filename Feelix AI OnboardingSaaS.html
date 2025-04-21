@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feelix AI - Onboarding</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #3ED2D0;
+      --primary-dark: #2ebfbd;
+      --secondary: #7c3aed;
+      --bg: #f9f9f9;
+      --dark: #0f172a;
+      --slate: #475569;
+      --light-slate: #94a3b8;
+      --white: #ffffff;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 25px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.05);
+      --success: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* Logo Header */
+    .logo-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      gap: 1rem;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .logo-img {
+      height: 40px;
+      width: 40px;
+    }
+    
+    .logo-text {
+      font-size: 1.75rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .onboarding-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .onboarding-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .onboarding-header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+
+    .onboarding-header p {
+      color: var(--slate);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Progress Steps */
+    .progress-steps {
+      display: flex;
+      justify-content: center;
+      margin: 2rem 0 3rem;
+      position: relative;
+    }
+
+    .progress-steps::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--bg);
+      z-index: 1;
+    }
+
+    .progress-bar {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      height: 4px;
+      background: var(--primary);
+      z-index: 2;
+      transition: var(--transition);
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 3;
+      width: 120px;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg);
+      color: var(--slate);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      border: 3px solid var(--bg);
+      transition: var(--transition);
+    }
+
+    .step.active .step-number {
+      background: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
+
+    .step.completed .step-number {
+      background: var(--success);
+      color: var(--white);
+      border-color: var(--success);
+    }
+
+    .step-text {
+      color: var(--light-slate);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .step.active .step-text,
+    .step.completed .step-text {
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    /* Welcome Screen */
+    .welcome-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .option-card {
+      background: var(--bg);
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 2px solid transparent;
+    }
+
+    .option-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(62, 210, 208, 0.3);
+    }
+
+    .option-card i {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .option-card h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .option-card p {
+      color: var(--slate);
+      margin-bottom: 0.5rem;
+    }
+
+    .option-card .recommended-badge {
+      display: inline-block;
+      background: var(--success);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    /* Brand Info Screen */
+    .brand-info-form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      transition: var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(62, 210, 208, 0.2);
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .logo-upload {
+      border: 2px dashed #cbd5e1;
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-bottom: 1rem;
+    }
+
+    .logo-upload:hover {
+      border-color: var(--primary);
+      background: rgba(62, 210, 208, 0.05);
+    }
+
+    .logo-upload i {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .logo-preview {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      border-radius: 8px;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    /* Channel Connection Screen */
+    .channels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .channel-card {
+      background: var(--white);
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .channel-card:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .channel-card i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--slate);
+    }
+
+    .channel-card.connected i {
+      color: var(--success);
+    }
+
+    .channel-card h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .channel-card p {
+      color: var(--light-slate);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .connect-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .connect-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .connected-badge {
+      background: var(--success);
+      color: white;
+      padding: 0.5rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* Personality Training Screen */
+    .training-section {
+      margin: 2rem 0;
+    }
+
+    .tone-selector {
+      display: flex;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tone-option {
+      padding: 1rem 1.5rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
+      min-width: 120px;
+    }
+
+    .tone-option:hover {
+      border-color: var(--primary);
+    }
+
+    .tone-option.selected {
+      border-color: var(--primary);
+      background: rgba(62, 210, 208, 0.1);
+    }
+
+    .tone-option i {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .upload-area {
+      border: 2px dashed #cbd5e1;
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      margin: 2rem 0;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .upload-area:hover {
+      border-color: var(--primary);
+      background: rgba(62, 210, 208, 0.05);
+    }
+
+    .upload-area i {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    /* Test & Go Live Screen */
+    .test-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .test-chat {
+      background: var(--white);
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.5rem;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-messages {
+      flex-grow: 1;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+
+    .message {
+      margin-bottom: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      max-width: 80%;
+    }
+
+    .user-message {
+      background: var(--primary);
+      color: white;
+      margin-left: auto;
+      border-bottom-right-radius: 0;
+    }
+
+    .bot-message {
+      background: #f1f5f9;
+      margin-right: auto;
+      border-bottom-left-radius: 0;
+    }
+
+    .emotion-indicator {
+      font-size: 0.8rem;
+      margin-top: 0.25rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .emotion-indicator i {
+      margin-right: 0.25rem;
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .chat-input input {
+      flex-grow: 1;
+      padding: 0.75rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+    }
+
+    .chat-input button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0 1rem;
+      cursor: pointer;
+    }
+
+    .sentiment-analysis {
+      background: var(--white);
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .sentiment-meter {
+      height: 10px;
+      background: linear-gradient(to right, #ef4444, #f59e0b, #10b981);
+      border-radius: 5px;
+      margin: 1rem 0;
+      position: relative;
+    }
+
+    .sentiment-pointer {
+      position: absolute;
+      top: -5px;
+      width: 20px;
+      height: 20px;
+      background: var(--dark);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      transition: var(--transition);
+    }
+
+    /* Navigation Buttons */
+    .onboarding-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .nav-btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .secondary-btn {
+      background: transparent;
+      border: 1px solid #cbd5e1;
+      color: var(--slate);
+    }
+
+    .secondary-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .primary-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+    }
+
+    .primary-btn:hover {
+      background: var(--primary-dark);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Hidden screens */
+    .onboarding-screen {
+      display: none;
+    }
+
+    .onboarding-screen.active {
+      display: block;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .test-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .progress-steps {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      
+      .step {
+        width: 80px;
+      }
+      
+      .logo-text {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="onboarding-container">
+    <!-- Logo Header -->
+    <div class="logo-header">
+      <div class="logo-container">
+        <img src="https://raw.githubusercontent.com/AlelyaniT/Felix-home-/main/FeelixLLC.jpg" alt="Feelix AI Logo" class="logo-img">
+        <span class="logo-text">Feelix AI</span>
+      </div>
+    </div>
+
+    <!-- Progress Steps -->
+    <div class="progress-steps">
+      <div class="progress-bar" style="width: 20%;"></div>
+      <div class="step active" data-step="1">
+        <span class="step-number">1</span>
+        <span class="step-text">Get Started</span>
+      </div>
+      <div class="step" data-step="2">
+        <span class="step-number">2</span>
+        <span class="step-text">Brand Info</span>
+      </div>
+      <div class="step" data-step="3">
+        <span class="step-number">3</span>
+        <span class="step-text">Connect</span>
+      </div>
+      <div class="step" data-step="4">
+        <span class="step-number">4</span>
+        <span class="step-text">Train AI</span>
+      </div>
+      <div class="step" data-step="5">
+        <span class="step-number">5</span>
+        <span class="step-text">Go Live!</span>
+      </div>
+    </div>
+
+    <!-- Screen 1: Welcome -->
+    <div class="onboarding-screen active" id="screen-1">
+      <div class="onboarding-header">
+        <h1>👋 Welcome to Feelix AI!</h1>
+        <p>Let's get your emotion-aware chatbot ready in a few simple steps.</p>
+      </div>
+
+      <div class="welcome-options">
+        <div class="option-card" onclick="nextStep(2)">
+          <i class="fas fa-bolt"></i>
+          <h3>Quick Setup</h3>
+          <p>Pre-configured for common use cases</p>
+          <span class="recommended-badge">Recommended</span>
+        </div>
+        <div class="option-card" onclick="nextStep(2)">
+          <i class="fas fa-cogs"></i>
+          <h3>Advanced Setup</h3>
+          <p>Full customization control</p>
+        </div>
+      </div>
+
+      <div class="onboarding-nav">
+        <button class="secondary-btn" onclick="skipOnboarding()">
+          Skip setup for now
+        </button>
+        <button class="primary-btn" onclick="nextStep(2)">
+          Continue <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Screen 2: Brand & Business Info -->
+    <div class="onboarding-screen" id="screen-2">
+      <div class="onboarding-header">
+        <h1>🏢 Brand & Business Info</h1>
+        <p>Tell us about your business to personalize your AI assistant</p>
+      </div>
+
+      <div class="brand-info-form">
+        <div class="form-group">
+          <label for="business-name">Business Name</label>
+          <input type="text" id="business-name" placeholder="Your company name">
+        </div>
+        
+        <div class="form-group">
+          <label for="business-type">Business Type</label>
+          <select id="business-type">
+            <option value="">Select your industry</option>
+            <option value="ecommerce">E-commerce</option>
+            <option value="saas">SaaS</option>
+            <option value="finance">Finance</option>
+            <option value="healthcare">Healthcare</option>
+            <option value="education">Education</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Upload Your Logo</label>
+          <div class="logo-upload" onclick="document.getElementById('logo-upload').click()">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <h4>Click to upload logo</h4>
+            <p>PNG or JPG (max 2MB)</p>
+            <img id="logo-preview" class="logo-preview" src="" alt="Logo Preview">
+          </div>
+          <input type="file" id="logo-upload" accept="image/*" style="display: none;">
+        </div>
+        
+        <div class="form-group">
+          <label for="brand-voice">Brand Voice Description</label>
+          <textarea id="brand-voice" placeholder="Describe your brand personality (e.g., friendly, professional, humorous)"></textarea>
+        </div>
+      </div>
+
+      <div class="onboarding-nav">
+        <button class="secondary-btn" onclick="prevStep()">
+          <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <button class="primary-btn" onclick="nextStep(3)">
+          Continue <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Screen 3: Channel Connection -->
+    <div class="onboarding-screen" id="screen-3">
+      <div class="onboarding-header">
+        <h1>🔌 Connect Your Channels</h1>
+        <p>Where would you like to deploy your Feelix AI assistant?</p>
+      </div>
+
+      <div class="channels-grid">
+        <div class="channel-card">
+          <i class="fab fa-whatsapp"></i>
+          <h3>WhatsApp</h3>
+          <p>Connect your business WhatsApp number</p>
+          <button class="connect-btn">Connect</button>
+        </div>
+        <div class="channel-card">
+          <i class="fas fa-globe"></i>
+          <h3>Website</h3>
+          <p>Add chat widget to your website</p>
+          <button class="connect-btn">Connect</button>
+        </div>
+        <div class="channel-card">
+          <i class="fab fa-facebook-messenger"></i>
+          <h3>Messenger</h3>
+          <p>Connect your Facebook page</p>
+          <button class="connect-btn">Connect</button>
+        </div>
+        <div class="channel-card">
+          <i class="fas fa-envelope"></i>
+          <h3>Email</h3>
+          <p>Handle customer service emails</p>
+          <button class="connect-btn">Connect</button>
+        </div>
+      </div>
+
+      <div class="onboarding-nav">
+        <button class="secondary-btn" onclick="prevStep()">
+          <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <button class="primary-btn" onclick="nextStep(4)">
+          Continue <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Screen 4: Personality Training -->
+    <div class="onboarding-screen" id="screen-4">
+      <div class="onboarding-header">
+        <h1>🎭 Train Your AI Personality</h1>
+        <p>Teach Feelix how to respond with emotional intelligence</p>
+      </div>
+
+      <div class="training-section">
+        <h3>Choose your default tone:</h3>
+        <div class="tone-selector">
+          <div class="tone-option selected">
+            <i class="fas fa-user-tie"></i>
+            <h4>Professional</h4>
+          </div>
+          <div class="tone-option">
+            <i class="fas fa-smile"></i>
+            <h4>Friendly</h4>
+          </div>
+          <div class="tone-option">
+            <i class="fas fa-fire"></i>
+            <h4>Enthusiastic</h4>
+          </div>
+          <div class="tone-option">
+            <i class="fas fa-grin-stars"></i>
+            <h4>Empathetic</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="training-section">
+        <h3>Upload sample conversations:</h3>
+        <p>Help Feelix understand your communication style (CSV or PDF)</p>
+        <div class="upload-area">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <h4>Drag & drop files here</h4>
+          <p>or click to browse</p>
+        </div>
+      </div>
+
+      <div class="onboarding-nav">
+        <button class="secondary-btn" onclick="prevStep()">
+          <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <button class="primary-btn" onclick="nextStep(5)">
+          Continue <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Screen 5: Test & Go Live -->
+    <div class="onboarding-screen" id="screen-5">
+      <div class="onboarding-header">
+        <h1>🚀 Test & Go Live!</h1>
+        <p>Try out your emotion-aware AI before launching</p>
+      </div>
+
+      <div class="test-container">
+        <div class="test-chat">
+          <h3>Chat Tester</h3>
+          <div class="chat-messages">
+            <div class="message bot-message">
+              Hello! I'm your Feelix AI assistant. How can I help you today?
+              <div class="emotion-indicator">
+                <i class="fas fa-smile" style="color: #10b981;"></i>
+                <span>Positive sentiment detected</span>
+              </div>
+            </div>
+          </div>
+          <div class="chat-input">
+            <input type="text" placeholder="Type a message...">
+            <button><i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+        <div class="sentiment-analysis">
+          <h3>Emotion Detection</h3>
+          <p>See how Feelix analyzes customer emotions in real-time</p>
+          <div class="sentiment-meter">
+            <div class="sentiment-pointer" style="left: 75%;"></div>
+          </div>
+          <div class="emotion-feedback">
+            <p><strong>Current emotion:</strong> Positive 😊</p>
+            <p><strong>Suggested response tone:</strong> Helpful/Reassuring</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="onboarding-nav">
+        <button class="secondary-btn" onclick="prevStep()">
+          <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <button class="primary-btn" onclick="completeOnboarding()">
+          Launch Your AI <i class="fas fa-rocket"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Current step tracking
+    let currentStep = 1;
+    const totalSteps = 5;
+
+    // DOM elements
+    const progressBar = document.querySelector('.progress-bar');
+    const screens = document.querySelectorAll('.onboarding-screen');
+    const steps = document.querySelectorAll('.step');
+    const logoUpload = document.getElementById('logo-upload');
+    const logoPreview = document.getElementById('logo-preview');
+
+    // Update progress bar and active steps
+    function updateProgress(step) {
+      const percentage = ((step - 1) / (totalSteps - 1)) * 100;
+      progressBar.style.width = `${percentage}%`;
+
+      steps.forEach((s, index) => {
+        s.classList.remove('active', 'completed');
+        if (index + 1 < step) {
+          s.classList.add('completed');
+        } else if (index + 1 === step) {
+          s.classList.add('active');
+        }
+      });
+    }
+
+    // Navigate to specific step
+    function goToStep(step) {
+      currentStep = step;
+      updateProgress(step);
+      
+      screens.forEach(screen => {
+        screen.classList.remove('active');
+        if (screen.id === `screen-${step}`) {
+          screen.classList.add('active');
+        }
+      });
+    }
+
+    // Next step
+    function nextStep(step) {
+      if (step) {
+        goToStep(step);
+      } else {
+        goToStep(currentStep + 1);
+      }
+    }
+
+    // Previous step
+    function prevStep() {
+      goToStep(currentStep - 1);
+    }
+
+    // Skip onboarding
+    function skipOnboarding() {
+      if (confirm('Skip setup and go to dashboard? You can configure later from Settings.')) {
+        window.location.href = '/dashboard';
+      }
+    }
+
+    // Complete onboarding
+    function completeOnboarding() {
+      // Show loading/confirmation
+      alert('Congratulations! Your Feelix AI assistant is now live.');
+      window.location.href = '/dashboard';
+    }
+
+    // Logo upload preview
+    logoUpload.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          logoPreview.src = event.target.result;
+          logoPreview.style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Tone selection
+    document.querySelectorAll('.tone-option').forEach(option => {
+      option.addEventListener('click', function() {
+        document.querySelectorAll('.tone-option').forEach(opt => {
+          opt.classList.remove('selected');
+        });
+        this.classList.add('selected');
+      });
+    });
+
+    // Simulate chat
+    document.querySelector('.chat-input button').addEventListener('click', function() {
+      const input = document.querySelector('.chat-input input');
+      const message = input.value.trim();
+      if (message) {
+        // Add user message
+        const chatContainer = document.querySelector('.chat-messages');
+        const userMsg = document.createElement('div');
+        userMsg.className = 'message user-message';
+        userMsg.textContent = message;
+        chatContainer.appendChild(userMsg);
+        
+        // Simulate bot response after delay
+        setTimeout(() => {
+          const botMsg = document.createElement('div');
+          botMsg.className = 'message bot-message';
+          
+          // Simple response logic for demo
+          if (message.toLowerCase().includes('hello') || message.toLowerCase().includes('hi')) {
+            botMsg.textContent = 'Hello there! How can I assist you today?';
+          } else if (message.toLowerCase().includes('help')) {
+            botMsg.textContent = 'I\'d be happy to help. Could you tell me more about what you need?';
+          } else {
+            botMsg.textContent = 'Thanks for your message! Our team will get back to you if needed.';
+          }
+          
+          // Add emotion indicator
+          const emotionDiv = document.createElement('div');
+          emotionDiv.className = 'emotion-indicator';
+          emotionDiv.innerHTML = '<i class="fas fa-smile" style="color: #10b981;"></i> <span>Positive sentiment detected</span>';
+          botMsg.appendChild(emotionDiv);
+          
+          chatContainer.appendChild(botMsg);
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+          
+          // Update sentiment meter for demo
+          document.querySelector('.sentiment-pointer').style.left = '75%';
+          document.querySelector('.emotion-feedback').innerHTML = `
+            <p><strong>Current emotion:</strong> Positive 😊</p>
+            <p><strong>Suggested response tone:</strong> Helpful/Reassuring</p>
+          `;
+        }, 800);
+        
+        input.value = '';
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
+    });
+  </script>
+</body>
+</html>
